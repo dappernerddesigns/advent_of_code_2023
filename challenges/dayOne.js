@@ -79,6 +79,9 @@ const overlapNums = (input) => {
   return input;
 };
 
+// refactor
+const reCalibratorTwo = (input) => {};
+
 const fs = require("fs");
 
 const input = fs.readFileSync("./inputs/dayOne.txt", "utf8");
