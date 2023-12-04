@@ -1,50 +1,5 @@
-const findParts = (input) => {
-  const { finds, dupes } = parseInput(input);
-
-  const parts = [];
-  const digit = /\d/;
-
-  finds.forEach((symbol) => {
-    const { symbolIndex, row } = symbol;
-
-    const topLeft = dupes[row - 1][symbolIndex - 1];
-    const topMid = dupes[row - 1][symbolIndex];
-    const topRight = dupes[row - 1][symbolIndex + 1];
-    const currLeft = dupes[row][symbolIndex - 1];
-    const currRight = dupes[row][symbolIndex + 1];
-    const bottomLeft = dupes[row + 1][symbolIndex - 1];
-    const bottomMid = dupes[row + 1][symbolIndex];
-    const bottomRight = dupes[row + 1][symbolIndex + 1];
-    const window = new Set([
-      topLeft,
-      topMid,
-      topRight,
-      currLeft,
-      currRight,
-      bottomLeft,
-      bottomMid,
-      bottomRight,
-    ]);
-
-    window.forEach((part) => {
-      if (part !== ".") {
-        parts.push(Number(part));
-      }
-    });
-  });
-  let sum = 0;
-  parts.forEach((part) => {
-    sum += part;
-  });
-  return sum;
-};
-
-const parseInput = (input) => {
-  // find all symbol index and row
-  const finds = findSymbols(input);
-  // make each index with a digit the full number
-  const dupes = dupeNumbers(input);
-  return { finds, dupes };
+const findNumbers = (input) => {
+  const rows = input.split("\n");
 };
 
 const findSymbols = (input) => {
@@ -105,7 +60,7 @@ const fs = require("fs");
 const input = fs.readFileSync("./inputs/dayThree.txt", "utf8");
 
 console.log(
-  findParts(`467..114..
+  findNumbers(`467..114..
 ...*......
 ..35..633.
 ......#...
@@ -116,4 +71,3 @@ console.log(
 ...$.*....
 .664.598..`)
 );
-// console.log(findParts(input));
