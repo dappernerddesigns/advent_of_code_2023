@@ -1,8 +1,9 @@
+//part 1
 const seedLocator = (input) => {
   const seedMap = parseInput(input);
   const seeds = seedMap.seeds;
   delete seedMap.seeds;
-  const locations = [];
+  let location = Infinity;
 
   seeds.forEach((seed) => {
     const mapped = {};
@@ -28,10 +29,12 @@ const seedLocator = (input) => {
         ? (currValue = mapped[nextKey])
         : (mapped[nextKey] = currValue);
     }
-    locations.push(mapped.location);
+    if (mapped.location < location) {
+      location = mapped.location;
+    }
   });
-  console.log(Math.min(...locations));
-  return Math.min(...locations);
+  console.log(location);
+  return location;
 };
 
 const parseInput = (input) => {
@@ -63,8 +66,50 @@ const parseInput = (input) => {
   return parsedOutput;
 };
 
+//part 2
+const seedLocatorPartTwo = (input) => {
+  const seedMap = parseInput(input);
+  const seeds = seedMap.seeds;
+  delete seedMap.seeds;
+  let minLocation = Infinity;
+  // reverse it? go from location to seed and check the range. Start with location zero, has a humitidy of what? So on and so forth
+};
+
+const miniInput = `seeds: 79 14 55 13
+
+seed-to-soil map:
+50 98 2
+52 50 48
+
+soil-to-fertilizer map:
+0 15 37
+37 52 2
+39 0 15
+
+fertilizer-to-water map:
+49 53 8
+0 11 42
+42 0 7
+57 7 4
+
+water-to-light map:
+88 18 7
+18 25 70
+
+light-to-temperature map:
+45 77 23
+81 45 19
+68 64 13
+
+temperature-to-humidity map:
+0 69 1
+1 0 69
+
+humidity-to-location map:
+60 56 37
+56 93 4`;
+
 const fs = require("fs");
 const bigInput = fs.readFileSync("./inputs/dayFive.txt", "utf8");
-
-seedLocator(bigInput);
+seedLocatorPartTwo(bigInput);
 module.exports = { seedLocator };
