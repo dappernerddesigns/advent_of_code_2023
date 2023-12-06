@@ -1,3 +1,4 @@
+// part 1
 const boatRace = (input) => {
   const [timesRow, distancesRow] = input.split("\n");
   const times = parseInput(timesRow);
@@ -35,8 +36,36 @@ const parseInput = (row) => {
     .filter((digits) => digit.test(digits))
     .map((num) => Number(num));
 };
+// part 2
+const parseInputPartTwo = (row) => {
+  const digit = /\d/;
+  const result = row
+    .split(" ")
+    .filter((digits) => digit.test(digits))
+    .join("");
+  return Number(result);
+};
+
+const boatRaceTwo = (input) => {
+  const [timesRow, distancesRow] = input.split("\n");
+  const time = parseInputPartTwo(timesRow);
+  const distance = parseInputPartTwo(distancesRow);
+  let buttonPress = 0;
+  let boatSpeed = 0;
+  let winCount = 0;
+  while (buttonPress <= time) {
+    const timeLeft = time - buttonPress;
+    const boatDistance = boatSpeed * timeLeft;
+    if (boatDistance > distance) winCount++;
+    boatSpeed++;
+    buttonPress++;
+  }
+  console.log(winCount);
+  return winCount;
+};
+
 const testInput = `Time:      7  15   30
 Distance:  9  40  200`;
 const puzzleInput = `Time:        55     99     97     93
 Distance:   401   1485   2274   1405`;
-boatRace(puzzleInput);
+boatRaceTwo(puzzleInput);
