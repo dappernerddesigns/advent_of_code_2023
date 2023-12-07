@@ -71,10 +71,27 @@ const seedLocatorPartTwo = (input) => {
   const seedMap = parseInput(input);
   const seeds = seedMap.seeds;
   delete seedMap.seeds;
-  let minLocation = Infinity;
+
   // reverse it? go from location to seed and check the range. Start with location zero, has a humitidy of what? So on and so forth
+  let location = 0;
+  const maxSeedValue = findMaxValue(seeds)
+  const humidity = locationToHumid(location, seedMap["humidity-to-location"]);
 };
 
+const findMaxValue=(seedArr)=>{
+    const ranges = []
+    for(let i)
+}
+const locationToHumid = (location, map) => {
+    let humidity = 0
+  map.forEach(({ destinationStart, sourceStart, range }) => {
+    const destinationStop = destinationStart + range;
+    const inRange = location >= destinationStart && location <= destinationStop;
+    if(inRange){
+
+    }
+  });
+};
 const miniInput = `seeds: 79 14 55 13
 
 seed-to-soil map:
@@ -111,5 +128,5 @@ humidity-to-location map:
 
 const fs = require("fs");
 const bigInput = fs.readFileSync("./inputs/dayFive.txt", "utf8");
-seedLocatorPartTwo(bigInput);
+seedLocatorPartTwo(miniInput);
 module.exports = { seedLocator };
