@@ -20,13 +20,13 @@ const camelPoker = (hands) => {
     handGroups[count].push([hand, bid]);
   });
 
+  console.log(handGroups);
   for (const hand in handGroups) {
     while (handGroups[hand].length > 0) {
       const playedHand = handGroups[hand].pop();
       rankings.unshift(playedHand);
     }
   }
-
   return rankings;
 };
 const winnings = (rankings) => {
@@ -42,7 +42,21 @@ const winnings = (rankings) => {
 };
 
 const handSort = (hands) => {
-  const valueMap = { T: "A", J: "B", Q: "C", K: "D", A: "E" };
+  const valueMap = {
+    2: "A",
+    J: "B",
+    3: "C",
+    4: "D",
+    5: "E",
+    6: "F",
+    7: "G",
+    8: "H",
+    9: "I",
+    T: "J",
+    Q: "K",
+    K: "L",
+    A: "M",
+  };
 
   function customSort(a, b) {
     const getValue = (char) => valueMap[char] || char;
@@ -74,8 +88,22 @@ const cardCounter = (cards) => {
       counter[card] = 1;
     }
   }
-  const counts = Object.values(counter);
 
+  if (cards.includes("J")) {
+    const cardGroups = Object.entries(counter);
+    let highCardCount = 0;
+    let highestCard = "";
+
+    cardGroups.forEach(([card, count]) => {
+      if (count > highCardCount) {
+        highCardCount = count;
+        highestCard = card;
+      }
+    });
+    const jokers = counter.J;
+    counter[highestCard] += jokers;
+  }
+  const counts = Object.values(counter);
   if (counts.includes(5)) {
     return "fiveOfAKind";
   } else if (counts.includes(4)) {
@@ -95,9 +123,5 @@ const cardCounter = (cards) => {
 
 const fs = require("fs");
 const newPlayerData = fs.readFileSync("./inputs/daySeven.txt", "utf8");
-const newPlayers = camelPoker(`32T3K 765
-T55J5 684
-KK677 28
-KTJJT 220
-QQQJA 483`);
+const newPlayers = camelPoker(newPlayerData);
 console.log(winnings(newPlayers));
